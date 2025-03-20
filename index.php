@@ -5,12 +5,13 @@
     </head>
     <body> 
 
-        <form method="post" action="teste.php">
-            Nome: <input type="text" name="nome"><br>
-            Idade: <input type="text" name="idade"><br>
+        <form method="post" action="login.php">
+            Usuário: <input type="text" name="usuario"><br>
+            Senha: <input type="password" name="senha"><br>
             <input type="submit" value="enviar">
         </form>
-        
+
     </body>
 
 </html>
+
