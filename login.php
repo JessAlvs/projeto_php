@@ -1,26 +1,31 @@
 <?php
 
-if(!isset($_POST['usuario']) || $_POST['usuario'] == ''){
-    die("Favor informar o usuário");
+include("conexao.php");
+
+$cpf=$_POST["cpf"];
+$senha=$_POST["senha"];
+
+if(!isset($_POST['cpf']) || $_POST['cpf']= ''){
+    die("Insira um CPF")
 }
 
 if(!isset($_POST['senha']) || $_POST['senha'] == ''){
     die("Favor informar a senha");
 }
 
-if(!isset($_POST['usuario']) == '123' || $_POST['senha'] == '123'){
+$sql = "select nome from usuarios where cpf='$cpf' and senha='$senha'";
+    
+$resultado = $conn->query($sql);
+$row = $resultado->fetch_assoc();
+
+if(isset($row) && $row['nome'] != ''){
     session_start();
-
-    $_SESSION['usuario'] = $_POST['usuario'];
-    $_SESSION['senha'] = $_POST['senha'];
-
+    $_SESSION['cpf'] = $cpf;
+    $_SESSION['senha'] = $senha;
+    $_SESSION['nome']= $row['nome'];
     header("Location: principal.php");
-    die;
 }else{
-    die("usuario e senha incorretos");
+    echo "senha incorreta";
 }
-
-
-
 
 ?>
