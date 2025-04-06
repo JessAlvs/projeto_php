@@ -5,8 +5,8 @@ include("conexao.php");
 $cpf=$_POST["cpf"];
 $senha=$_POST["senha"];
 
-if(!isset($_POST['cpf']) || $_POST['cpf']= ''){
-    die("Insira um CPF")
+if(!isset($_POST['cpf']) || $_POST['cpf'] == ''){
+    die("Insira um CPF");
 }
 
 if(!isset($_POST['senha']) || $_POST['senha'] == ''){
