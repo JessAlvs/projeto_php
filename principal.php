@@ -8,42 +8,6 @@ echo "nome: ".$_SESSION['nome'].'<br>';
 echo "senha: ".$_SESSION['senha'];
 ?>
 
-
-<!-- <html> 
-    <head>
-    </head>
-
-    <body> 
-
-    <div style = "width: 800px; margin: 0 auto;">
-        <div style="min-height: 100px; width: 100%; background-color:rgb(125, 78, 170);";>
-            <div style="width: 50%; float:left">
-            <span style="padding-left: 10px;">Olá <?=$_SESSION['nome'];?></span>
-            </div>
-
-            <div style="width: 50%; float: left; text-align:right;">
-            <span style="background-color:blue; margin-right:10px;"> <a href="sair.php"><font color="black">
-            </div>
-
-        </div>
-        <div id="menu" style="width: 200px; background-color: #f4f4f4; min-height: 400px; float: left;">
-            <h2>Menu</h2>
-            <p><a href="item.php"><font color="black">item 1</font></a></p>
-            <p>Item 2</p>
-            <p>Item 3</p>
-        </div>
-
-        <div style="background-color: #ddd; min-height: 400px; width: 600px; float: left">
-            <h2>Manutenção de Filmes</h2>
-
-        </div>
-    </div>
-
-
-    </body>
-
-</html> -->
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -132,6 +96,11 @@ echo "senha: ".$_SESSION['senha'];
         </div>
         <div>
             <a href="sair.php">Sair</a>
+        </div>
+    </div>
+
+    <div>
+            <a href="cadastrarUsuario.php" class="btn-cadastro">Cadastrar Usuário</a>
         </div>
     </div>
 
