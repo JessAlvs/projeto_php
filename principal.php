@@ -1,124 +1,144 @@
 <?php
-
 include("autenticacao.php");
-
-
-echo "cpf: ".$_SESSION['cpf'].'<br>';
-echo "nome: ".$_SESSION['nome'].'<br>';
-echo "senha: ".$_SESSION['senha'];
 ?>
 
+<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        .container {
-            width: 80%;
-            max-width: 1200px;
-            margin: 0 auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
+            color: #333;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            padding: 20px;
         }
 
-        .header {
+        header {
+            background-color: rgb(125, 78, 170); 
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgb(125, 78, 170);
-            color: white;
-            padding: 10px 20px;
-        }
-
-        .header span {
-            font-size: 16px;
-        }
-
-        .header a {
-            color: black;
-            text-decoration: none;
-            background-color: #d3d3d3;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-        .main-content {
-            display: flex;
-            gap: 20px;
-        }
-
-        .menu {
-            width: 200px;
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .menu h2 {
             font-size: 18px;
+            color: white;
+            font-weight: 600;
+            border-bottom: 3px solid rgb(97, 42, 170); 
         }
 
-        .menu p {
-            margin: 10px 0;
-        }
-
-        .menu a {
-            color: black;
+        header a {
+            color: #0090ff; 
             text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
 
-        .content {
-            flex-grow: 1;
-            background-color: #ddd;
-            padding: 20px;
+        header a:hover {
+            color: #0056b3; 
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            max-width: 900px;
+            margin: 40px auto;
             border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background-color: #fff;
         }
 
-        .content h2 {
-            font-size: 24px;
+        nav {
+            width: 200px;
+            background-color: rgb(125, 78, 170, 0.1); 
+            padding: 30px 20px;
+            border-right: 1px solid rgba(125, 78, 170, 0.3);
+            color: rgb(60, 30, 90);
+        }
+
+        nav h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        nav a {
+            display: block;
+            padding: 10px 0;
+            color: rgb(30, 60, 200); 
+            text-decoration: none;
+            font-size: 16px;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: rgb(0, 120, 255);
+            border-bottom: 1px solid rgb(0, 120, 255);
+        }
+
+        main {
+            flex: 1;
+            padding: 30px 40px;
+            color: #333;
+        }
+
+        main h2 {
+            margin-top: 0;
+            font-weight: 600;
+            font-size: 26px;
+            color: rgb(80, 40, 140);
+        }
+
+        main p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin: 20px 15px;
+            }
+            nav {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(125, 78, 170, 0.3);
+                padding: 15px 10px;
+            }
+            main {
+                padding: 20px 15px;
+            }
         }
     </style>
 </head>
 <body>
 
+<header>
+    <span>Olá, <?=htmlspecialchars($_SESSION['nome'])?></span>
+    <a href="sair.php">Sair</a>
+</header>
+
 <div class="container">
-    <div class="header">
-        <div>
-            <span>Olá <?=$_SESSION['nome'];?></span>
-        </div>
-        <div>
-            <a href="sair.php">Sair</a>
-        </div>
-    </div>
+    <nav>
+        <h2>Menu</h2>
+        <a href="cadastrarUsuario.php">Cadastrar Usuário</a>
+        <a href="cadastrarFilmes.php">Cadastrar Filmes</a>
+        
+    </nav>
 
-    <div>
-            <a href="cadastrarUsuario.php" class="btn-cadastro">Cadastrar Usuário</a>
-        </div>
-    </div>
-
-    <div class="main-content">
-        <div class="menu">
-            <h2>Menu</h2>
-            <p><a href="item.php">Item 1</a></p>
-            <p>Item 2</p>
-            <p>Item 3</p>
-        </div>
-
-        <div class="content">
-            <h2>Manutenção de Filmes</h2>
-            <!-- Conteúdo adicional aqui -->
-        </div>
-    </div>
+    <main>
+        <h2>Principal</h2>
+        <p> teste teste test </p>
+    </main>
 </div>
 
 </body>
 </html>
-

@@ -5,21 +5,21 @@ $ano = $_POST["ano"];
 $nome = $_POST["nome"];
 $genero = $_POST["genero"];
 
-if($genero == ''){
-    die("insira um genero");
+if (empty($genero)) {
+    die("Insira um gênero");
 }
 
-$sql = "insert into filmes (nome,ano,genero) values(?,?,?) ";
-$stmt = $con->prepare($sql);
+$stmt = $conn->prepare("INSERT INTO filmes (Nome, Ano, Genero) VALUES (?, ?, ?)");
 
-if ($stmt){
-    $stmt->bind_param("sii", $nome, $ano, $genero);
-    if($stmt->execute()){
+if ($stmt) {
+    $stmt->bind_param("sis", $nome, $ano, $genero);
+    if ($stmt->execute()) {
         header("Location: cadastroFilmes.php");
-        die;
-    }else{
-        die("erro ao inserir filme");
+        exit();
+    } else {
+        die("Erro ao inserir filme");
     }
-}else{
-    die("erro ao inserir filme");
+} else {
+    die("Erro na preparação da query");
 }
+?>

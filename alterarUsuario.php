@@ -6,9 +6,13 @@ $nome = $_POST["nome"];
 $senha = $_POST["senha"];
 $cpfAnterior = $_POST["cpfAnterior"];
 
-$sql = "update usuarios set cpf = '$cpf', senha = '$senha', nome = '$nome' where cpf = '$cpfAnterior'";
+$stmt = $conn->prepare("UPDATE usuarios SET CPF = ?, Senha = ?, Nome = ? WHERE CPF = ?");
+$stmt->bind_param("ssss", $cpf, $senha, $nome, $cpfAnterior);
 
-if(!$resultado = $conn->query($sql)){
-    die("erro");
+if (!$stmt->execute()) {
+    die("Erro ao alterar usuário");
 }
+
 header("Location: cadastrarUsuario.php");
+exit();
+?>

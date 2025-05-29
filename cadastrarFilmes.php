@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cadastrar Usuário</title>
+    <title>Cadastrar Filme</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,11 +23,11 @@
             width: 100%;
             max-width: 400px;
             box-sizing: border-box;
+            color: #333;
         }
 
         h2 {
             text-align: center;
-            color: #333;
             margin-bottom: 20px;
             font-size: 24px;
         }
@@ -35,23 +35,18 @@
         label {
             font-size: 16px;
             color: #555;
+            display: block;
+            margin-top: 12px;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input[type="text"], select {
             width: 100%;
             padding: 12px;
-            margin-bottom: 20px;
+            margin-top: 6px;
             border: 1px solid #ccc;
             border-radius: 6px;
             box-sizing: border-box;
             font-size: 16px;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #0072ff;
-            outline: none;
         }
 
         input[type="submit"] {
@@ -64,96 +59,66 @@
             font-size: 18px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 20px;
         }
 
         input[type="submit"]:hover {
             background-color: rgb(107, 0, 179);
         }
 
-        .form-footer {
+        .back-link {
+            display: block;
             text-align: center;
             margin-top: 15px;
-        }
-
-        .form-footer a {
             color: #0072ff;
             text-decoration: none;
+            font-weight: 600;
         }
 
-        .form-footer a:hover {
+        .back-link:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 
 <?php
-include("conexao.php")
+include("conexao.php");
+
 ?>
 
 <body>
-    <div style= " background-color: #ddd; min-height: 400px; width: 600px; float:left">
+    <div class="login-container">
         <h2>Manutenção do Filme</h2>
         <h2>Cadastrar Novo Filme</h2>
         <form method="post" action="inserirFilme.php">
-            Nome:<input type="text" id="nome" id="nome"><br>
-            Ano: <input type="text" id="ano" id="ano"><br>
-            Genero: <select name="genero">
-                        <option value="">Selecione um Gênero</option>
-                    <?php
-                    $sql = "select * from generos where status=1 ";
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+
+            <label for="ano">Ano:</label>
+            <input type="text" name="ano" id="ano" required>
+
+            <label for="genero">Gênero:</label>
+            <select name="genero" id="genero" required>
+                <option value="">Selecione um Gênero</option>
+                <?php
+                    $sql = "SELECT * FROM genero";
+                  
                     if(!$resultado = $conn->query($sql)){
-                        die("erro");
+                        die("Erro ao buscar gêneros");
                     } 
+                 
                     while($row = $resultado->fetch_assoc()){
                         ?>
-                        <option value="<?=$row['genero'];?>"><?=$row['descricao'];?></option>
+                        <option value="<?= htmlspecialchars($row['genero']); ?>"><?= htmlspecialchars($row['descricao']); ?></option>
                         <?php
                     }
-            ?>
-                    </select>
-            <input type="submit" value="inserir">
+                ?>
+            </select>
+
+            <input type="submit" value="Inserir">
         </form>
+
+        <a href="principal.php" class="back-link">Voltar para página principal</a>
     </div>
-    <br><br><hr><br><br>
-    
-    <?php
-    /*
-        include("conexao.php")
-
-        $sql = "select nome,cpf, senha from usuarios ";
-        if(!$resultado = $conn->query($sql)){
-            die("erro");
-        }
-    ?>
-
-    <table>
-        <tr>
-            <td>Nome</td>
-            <td>CPF</td>
-            <td>Senha</td>
-            <td>Alterar</td>
-            <td>Apagar</td>
-        </tr>
-
-    <?php
-    while($row = $resultado->fetch_assoc()){
-        ?>
-
-        <tr>
-            <form method="post" action="alterarUsuario.php">
-                <input type="hidden" name="cpfAnterior" value="<?-$row['cpf'];?>">
-                <td>
-                    <input type="text" name="nome" value="<?-$row['nome'];?>">
-                </td>
-                <td> <input type="text" name="cpf" value="<?-$row['cpf'];?>"> </td>
-                <td> <input type="text" name="senha" value="<?-$row['senha'];?>"> </td>
-                <td> <input type="submit" value="alterar"> </td>
-            </from>
-        </tr>
-        <?php 
-    }
-    ?> </table>
-*/
-
 </body>
 </html>

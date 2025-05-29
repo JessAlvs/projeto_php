@@ -1,141 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Cadastrar Usuário</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-image: linear-gradient(to right,rgb(74, 9, 134),rgb(97, 42, 170));
-        }
+<?php
+include("conexao.php");
 
-        .login-container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            box-sizing: border-box;
-        }
+$sql = "SELECT Nome, CPF, Senha FROM usuarios";
+$resultado = $conn->query($sql);
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
+if (!$resultado) {
+    die("Erro na consulta");
+}
+?>
 
-        label {
-            font-size: 16px;
-            color: #555;
-        }
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Senha</th>
+        <th>Alterar</th>
+        <th>Apagar</th>
+    </tr>
 
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #0072ff;
-            outline: none;
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: rgb(49, 5, 90);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        input[type="submit"]:hover {
-            background-color: rgb(107, 0, 179);
-        }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .form-footer a {
-            color: #0072ff;
-            text-decoration: none;
-        }
-
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="login-container">
-        <h2>Cadastrar Novo Usuário</h2>
-        <form method="post" action="salvarUsuario.php">
-            <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" required><br>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required><br>
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required><br>
-            <input type="submit" value="Cadastrar">
-        </form>
-    </div>
-    
-    <?php
-        include("conexao.php")
-
-        $sql = "select nome,cpf, senha from usuarios ";
-        if(!$resultado = $conn->query($sql)){
-            die("erro");
-        }
-    ?>
-
-    <table>
-        <tr>
-            <td>Nome</td>
-            <td>CPF</td>
-            <td>Senha</td>
-            <td>Alterar</td>
-            <td>Apagar</td>
-        </tr>
-
-    <?php
-    while($row = $resultado->fetch_assoc()){
-        ?>
-
+    <?php while ($row = $resultado->fetch_assoc()) { ?>
         <tr>
             <form method="post" action="alterarUsuario.php">
-                <input type="hidden" name="cpfAnterior" value="<?-$row['cpf'];?>">
-                <td>
-                    <input type="text" name="nome" value="<?-$row['nome'];?>">
-                </td>
-                <td> <input type="text" name="cpf" value="<?-$row['cpf'];?>"> </td>
-                <td> <input type="text" name="senha" value="<?-$row['senha'];?>"> </td>
-                <td> <input type="submit" value="alterar"> </td>
-            </from>
+                <input type="hidden" name="cpfAnterior" value="<?=htmlspecialchars($row['CPF'])?>">
+                <td><input type="text" name="nome" value="<?=htmlspecialchars($row['Nome'])?>"></td>
+                <td><input type="text" name="cpf" value="<?=htmlspecialchars($row['CPF'])?>"></td>
+                <td><input type="text" name="senha" value="<?=htmlspecialchars($row['Senha'])?>"></td>
+                <td><input type="submit" value="Alterar"></td>
+            </form>
+            <form method="post" action="apagarUsuario.php">
+                <input type="hidden" name="cpf" value="<?=htmlspecialchars($row['CPF'])?>">
+                <td><input type="submit" value="Apagar"></td>
+            </form>
         </tr>
-        <?php 
-    }
-    ?> </table>
-
-
-</body>
-</html>
+    <?php } ?>
+</table>
