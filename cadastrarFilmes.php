@@ -85,21 +85,39 @@
         }
     </style>
 </head>
+
+<?php
+include("conexao.php")
+?>
+
 <body>
-    <div class="login-container">
-        <h2>Cadastrar Novo Usuário</h2>
-        <form method="post" action="salvarUsuario.php">
-            <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" required><br>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required><br>
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required><br>
-            <input type="submit" value="Cadastrar">
+    <div style= " background-color: #ddd; min-height: 400px; width: 600px; float:left">
+        <h2>Manutenção do Filme</h2>
+        <h2>Cadastrar Novo Filme</h2>
+        <form method="post" action="inserirFilme.php">
+            Nome:<input type="text" id="nome" id="nome"><br>
+            Ano: <input type="text" id="ano" id="ano"><br>
+            Genero: <select name="genero">
+                        <option value="">Selecione um Gênero</option>
+                    <?php
+                    $sql = "select * from generos where status=1 ";
+                    if(!$resultado = $conn->query($sql)){
+                        die("erro");
+                    } 
+                    while($row = $resultado->fetch_assoc()){
+                        ?>
+                        <option value="<?=$row['genero'];?>"><?=$row['descricao'];?></option>
+                        <?php
+                    }
+            ?>
+                    </select>
+            <input type="submit" value="inserir">
         </form>
     </div>
+    <br><br><hr><br><br>
     
     <?php
+    /*
         include("conexao.php")
 
         $sql = "select nome,cpf, senha from usuarios ";
@@ -135,7 +153,7 @@
         <?php 
     }
     ?> </table>
-
+*/
 
 </body>
 </html>
